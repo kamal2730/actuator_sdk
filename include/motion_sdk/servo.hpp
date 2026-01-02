@@ -12,6 +12,7 @@ public:
     bool setPosition(float angle_deg);
     bool getPosition(float& angle_deg);
     bool getEffort(float& effort);
+    bool getSpeed(float& speed);
 
 private:
     USBSerial& serial_;

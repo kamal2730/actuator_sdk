@@ -68,5 +68,22 @@ bool Servo::getEffort(float& effort) {
     }
     return true;
 }
+bool Servo::getSpeed(float& speed) {
+    std::ostringstream cmd;
+    cmd << "GET_SPEED " << id_;
 
+    if (!serial_.writeLine(cmd.str()))
+        return false;
+
+    std::string resp;
+    if (!serial_.readLine(resp))
+        return false;
+
+    try {
+        speed = std::stof(resp);
+    } catch (...) {
+        return false;
+    }
+    return true;        
+} 
 } // namespace motion_sdk
