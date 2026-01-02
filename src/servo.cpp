@@ -50,5 +50,23 @@ bool Servo::getPosition(float& angle_deg) {
     }
     return true;
 }
+bool Servo::getEffort(float& effort) {
+    std::ostringstream cmd;
+    cmd << "GET_TORQUE " << id_;
+
+    if (!serial_.writeLine(cmd.str()))
+        return false;
+
+    std::string resp;
+    if (!serial_.readLine(resp))
+        return false;
+
+    try {
+        effort = std::stof(resp);
+    } catch (...) {
+        return false;
+    }
+    return true;
+}
 
 } // namespace motion_sdk
